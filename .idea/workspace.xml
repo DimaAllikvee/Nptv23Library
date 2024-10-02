@@ -7,11 +7,6 @@
     <list default="true" id="bae7383c-2dd4-4964-abc8-23e9717250ad" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Nptv23Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Nptv23Library.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/handlers/BookHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/handlers/BookHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/ConsoleInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/ConsoleInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/InputBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/InputBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/BookService.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +37,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
-    "Application.Nptv23Library.executor": "Run",
+    "Application.Nptv23Library.executor": "Debug",
     "JUnit.AppTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -129,11 +124,26 @@
       <option name="presentableId" value="Default" />
       <updated>1727417039999</updated>
       <workItem from="1727417041142" duration="8374000" />
-      <workItem from="1727846154996" duration="9360000" />
+      <workItem from="1727846154996" duration="10035000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/InputBook.java</url>
+          <line>9</line>
+          <properties class="org.example.interfaces.impl.InputBook" method="createBook">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

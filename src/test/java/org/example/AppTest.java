@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.handlers.BookHandler;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class AppTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        App app = new App();
+        App app = new App(new BookHandler(), new InputProvider());
         app.run();  // Запуск программы с вводом "0" для выхода
     }
 
@@ -39,7 +40,7 @@ class AppTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        App app = new App();
+        App app = new App(new BookHandler(), new InputProvider());
         app.run();  // Запуск программы с некорректным вводом и последующим выходом
     }
     @Test
@@ -48,7 +49,7 @@ class AppTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        App app = new App();
+        App app = new App(new BookHandler(), new InputProvider());
         app.run();  // Запуск программы с вводом "2" и последующим выходом
     }
 }
