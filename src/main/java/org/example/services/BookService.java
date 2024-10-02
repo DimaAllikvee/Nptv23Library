@@ -5,7 +5,7 @@ import org.example.model.Book;
 
 public class BookService {
     public Book createBook() {
-        Author author = new Author(authorName: "Лев", authorSurname: "Толстой");
+        Author author = new Author("Лев", "Толстой");
         Book book = new Book();
         book.setTitle("Война и мир");
         book.setPublishedYear(2000);
