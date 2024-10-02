@@ -13,7 +13,6 @@ public class Nptv23Library {
         BookProvider bookProvider = new InputBook();
         BookHandler bookHandler = new BookHandler(inputProvider, bookProvider);
 
-        System.out.println("-------Nptv23Library-------");
         App app = new App(bookHandler, inputProvider);
         app.run();
     }
