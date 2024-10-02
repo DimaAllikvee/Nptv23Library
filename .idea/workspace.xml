@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bae7383c-2dd4-4964-abc8-23e9717250ad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/handlers/BookHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/BookProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/InputProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/ConsoleInput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/InputBook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/services/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Nptv23Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Nptv23Library.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -57,9 +64,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.example.interfaces.impl" />
+      <recent name="org.example.interfaces" />
+      <recent name="org.example.handlers" />
       <recent name="org.example.model" />
       <recent name="org.example.services" />
-      <recent name="org.example" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -121,7 +130,7 @@
       <option name="presentableId" value="Default" />
       <updated>1727417039999</updated>
       <workItem from="1727417041142" duration="8374000" />
-      <workItem from="1727846154996" duration="1511000" />
+      <workItem from="1727846154996" duration="4937000" />
     </task>
     <servers />
   </component>
