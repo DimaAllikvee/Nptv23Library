@@ -1,57 +1,50 @@
 package org.example;
 
 import org.example.handlers.BookHandler;
+import org.example.interfaces.BookProvider;
+import org.example.interfaces.InputProvider;
+import org.example.model.Author;
+import org.example.model.Book;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 class AppTest {
-
-    private final InputStream systemIn = System.in;  // Сохранение оригинального System.in
-
+    ByteArrayOutputStream outDefault;
+    ByteArrayOutputStream outContent;
     @BeforeEach
-    public void setUp() {
-        // Восстановление стандартного System.in перед каждым тестом
-        System.setIn(systemIn);
+    void setUp() {
+        outDefault = new ByteArrayOutputStream();
+        outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
     }
 
     @AfterEach
-    public void restoreSystemIn() {
-        // Восстановление System.in после каждого теста
-        System.setIn(systemIn);
-    }
-
-    @Test
-    public void givenZeroInput_whenRun_thenExit() {
-        String input = "0\n";  // Добавляем символ новой строки, чтобы завершить ввод
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        App app = new App(new BookHandler(), new InputProvider());
-        app.run();  // Запуск программы с вводом "0" для выхода
-    }
-
-    @Test
-    public void givenInvalidTaskInput_whenRun_thenHandleErrorAndExit() {
-        String input = "1\n0\n";  // Некорректный ввод "1", затем "0" для выхода
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        App app = new App(new BookHandler(), new InputProvider());
-        app.run();  // Запуск программы с некорректным вводом и последующим выходом
+    void tearDown() {
+        System.setOut(new PrintStream(outDefault));
     }
     @Test
-    public void givenTwoInput_whenRun_thenHandleTask() {
-        String input = "2\n0\n";  // Ввод "2", затем "0" для выхода
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-
-        App app = new App(new BookHandler(), new InputProvider());
-        app.run();  // Запуск программы с вводом "2" и последующим выходом
+    void testAppRunExit() {
+        InputProvider inputMock = Mockito.mock(InputProvider.class);
+        when(inputMock.getInput()).thenReturn("0");
+        BookProvider bookProviderMock = Mockito.mock(BookProvider.class);
+        Author[] authors = new Author[1];
+        Author author = new Author("Lev","Tolstoy");
+        authors[0] = author;
+        when(bookProviderMock.createBook(inputMock)).thenReturn(new Book("Voina i mir",authors,2000));
+        BookHandler bookHandler = new BookHandler(inputMock,bookProviderMock);
+        App app = new App(bookHandler, inputMock);
+        app.run();
+        String outContentString = outContent.toString();
+        System.setOut(new PrintStream(outDefault));
+        System.out.println(outContentString);
+        assertTrue(outContent.toString().contains("Программа завершена"));
     }
 }
-
-

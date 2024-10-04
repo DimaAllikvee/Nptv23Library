@@ -7,6 +7,7 @@ import org.example.model.Book;
 
 
 public class App {
+
     public static Book[] books = new Book[100];
     private final BookHandler bookHandler;
     private final InputProvider inputProvider;

@@ -24,7 +24,7 @@ public class BookHandler {
                 break;
             }else if (i > 0 && App.books[i] == null) {
                 App.books[i] = book;
-
+                System.out.println("Книга добавлена!");
                 break;
             }
         }
