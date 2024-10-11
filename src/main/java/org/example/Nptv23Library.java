@@ -4,15 +4,14 @@ import org.example.handlers.BookHandler;
 import org.example.interfaces.BookProvider;
 import org.example.interfaces.InputProvider;
 import org.example.interfaces.impl.ConsoleInput;
-import org.example.interfaces.impl.InputBook;
+import org.example.interfaces.impl.AppBookHelper;
 
 public class Nptv23Library {
     public static void main(String[] args) {
 
         InputProvider inputProvider = new ConsoleInput();
-        BookProvider bookProvider = new InputBook();
+        BookProvider bookProvider = new AppBookHelper();
         BookHandler bookHandler = new BookHandler(inputProvider, bookProvider);
-
         App app = new App(bookHandler, inputProvider);
         app.run();
     }

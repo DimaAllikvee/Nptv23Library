@@ -25,6 +25,7 @@ public class App {
             System.out.println("Список задач: ");
             System.out.println("0. Выйти из программы");
             System.out.println("1. Добавить книгу");
+            System.out.println("2. Список книг");
             System.out.print("Введите номер задачи: ");
             int task = Integer.parseInt(inputProvider.getInput());
             switch (task) {
@@ -35,6 +36,11 @@ public class App {
                 case 1:
                     System.out.println("------Добавление книги-----");
                     bookHandler.addBook();
+                    break;
+                case 2:
+                    System.out.println("------Список книг-----");
+                    System.out.println(bookHandler);
+                    bookHandler.printListBooks();
                     break;
                 default:
                     System.out.println("Выберите существующую задачу:");

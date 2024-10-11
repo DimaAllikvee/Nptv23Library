@@ -5,6 +5,8 @@ import org.example.interfaces.BookProvider;
 import org.example.interfaces.InputProvider;
 import org.example.model.Book;
 
+import java.util.Arrays;
+
 public class BookHandler {
     private final InputProvider inputProvider;
     private final BookProvider bookProvider;
@@ -29,4 +31,9 @@ public class BookHandler {
             }
         }
     }
+
+    public void printListBooks() {
+        bookProvider.getList();
+    }
 }
+
