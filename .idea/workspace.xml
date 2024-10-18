@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bae7383c-2dd4-4964-abc8-23e9717250ad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/UserProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/AppHelperUsers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/services/UserServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Nptv23Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Nptv23Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/handlers/BookHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/services/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/interfaces/BookProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/BookProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/interfaces/InputProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/Input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/AppBookHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/AppHelperBooks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/ConsoleInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/interfaces/impl/ConsoleInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/example/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/AppTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +31,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -34,36 +48,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Nptv23Library.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.AppTest.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.NPTV23Library [package].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/golan/IdeaProjects/NPTV23Library/src/main/java/org/example/Main.java&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Nptv23Library.executor": "Run",
+    "JUnit.AppTest.executor": "Run",
+    "JUnit.UserServiceTest.testUserService.executor": "Run",
+    "Maven.NPTV23Library [package].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/golan/IdeaProjects/NPTV23Library/src/main/java/org/example/Main.java",
+    "settings.editor.selected.configurable": "copyright",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="org.example.interfaces.impl" />
-      <recent name="org.example.interfaces" />
-      <recent name="org.example.handlers" />
+      <recent name="org.example" />
       <recent name="org.example.model" />
       <recent name="org.example.services" />
+      <recent name="org.example.interfaces.impl" />
+      <recent name="org.example.interfaces" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -71,11 +86,15 @@
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="org.example.handlers" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.example" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.example.services" />
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AppTest">
+  <component name="RunManager" selected="JUnit.AppTest.testAppRun">
     <configuration name="Nptv23Library" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Nptv23Library" />
       <module name="NPTV23Library" />
@@ -104,9 +123,43 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AppTest.testAppRun" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="NPTV23Library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.AppTest" />
+      <option name="METHOD_NAME" value="testAppRun" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceTest.testUserService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="NPTV23Library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.services" />
+      <option name="MAIN_CLASS_NAME" value="org.example.services.UserServiceTest" />
+      <option name="METHOD_NAME" value="testUserService" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AppTest.testAppRun" />
         <item itemvalue="JUnit.AppTest" />
+        <item itemvalue="JUnit.UserServiceTest.testUserService" />
         <item itemvalue="Application.Nptv23Library" />
       </list>
     </recent_temporary>
@@ -133,6 +186,7 @@
       <workItem from="1728026155620" duration="57000" />
       <workItem from="1728623900997" duration="8967000" />
       <workItem from="1729228848227" duration="1721000" />
+      <workItem from="1729230614754" duration="10816000" />
     </task>
     <servers />
   </component>

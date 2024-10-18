@@ -1,9 +1,9 @@
 package org.example;
 
-import org.example.handlers.BookHandler;
+import org.example.interfaces.UserProvider;
+import org.example.services.BookService;
 import org.example.interfaces.BookProvider;
-import org.example.interfaces.InputProvider;
-import org.example.interfaces.impl.AppBookHelper;
+import org.example.interfaces.Input;
 import org.example.model.Author;
 import org.example.model.Book;
 import org.junit.jupiter.api.AfterEach;
@@ -32,20 +32,30 @@ class AppTest {
         System.setOut(new PrintStream(outDefault));
     }
     @Test
-    void testAppRunExit() {
-        InputProvider inputMock = Mockito.mock(InputProvider.class);
-        when(inputMock.getInput()).thenReturn("0");
+    void testAppRun() {
+        //Создаем заглушку
+        Input inputMock = Mockito.mock(Input.class);
+        when(inputMock.getString()).thenReturn("1","2","0");// Задаем значение ввода
+        //Создаем заглушку
         BookProvider bookProviderMock = Mockito.mock(BookProvider.class);
+        UserProvider userProviderMock = Mockito.mock(UserProvider.class);
+        //Создаем массив авторов и инициируем его автором
         Author[] authors = new Author[1];
         Author author = new Author("Lev","Tolstoy");
         authors[0] = author;
-        when(bookProviderMock.createBook(inputMock)).thenReturn(new Book("Voina i mir",authors,2000));
-        BookHandler bookHandler = new BookHandler(inputMock,bookProviderMock);
-        App app = new App(bookHandler,inputMock);
+        //Задаем значение, которое вставит bookProviderMock
+        when(bookProviderMock.create(inputMock)).thenReturn(new Book("Voina i mir",authors,2000));
+        when(bookProviderMock.getList()).thenReturn("1. Voina i mir. Lev, Tolstoy. 2000");
+
+        BookService bookServiceMock = new BookService(inputMock, bookProviderMock);
+        UserService userServiceMock = new UserService(userProviderMock);
+        App app = new App(bookServiceMock, userServiceMock, inputMock);
         app.run();
-//        String outContentString = outContent.toString();
-//        System.setOut(new PrintStream(outDefault));
-//        System.out.println(outContentString);
+        System.setOut(new PrintStream(outDefault));
+        System.out.println(outContent.toString());
+        assertTrue(outContent.toString().contains("Книга добавлена!"));
+        assertTrue(outContent.toString().contains("Voina i mir"));
         assertTrue(outContent.toString().contains("Программа завершена"));
     }
+
 }

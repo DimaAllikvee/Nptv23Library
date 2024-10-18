@@ -1,24 +1,22 @@
-package org.example.handlers;
+package org.example.services;
 
 import org.example.App;
 import org.example.interfaces.BookProvider;
-import org.example.interfaces.InputProvider;
+import org.example.interfaces.Input;
 import org.example.model.Book;
 
-import java.util.Arrays;
-
-public class BookHandler {
-    private final InputProvider inputProvider;
+public class BookService {
+    private final Input input;
     private final BookProvider bookProvider;
 
 
-    public BookHandler(InputProvider inputProvider, BookProvider bookProvider) {
-        this.inputProvider = inputProvider;
+    public BookService(Input input, BookProvider bookProvider) {
+        this.input = input;
         this.bookProvider = bookProvider;
     }
 
-    public void addBook() {
-        Book book = bookProvider.createBook(inputProvider);
+    public void add() {
+        Book book = bookProvider.create(input);
         for (int i = 0; i < App.books.length; i++) {
             if(i == 0 && App.books[i] == null) {
                 App.books[i] = book;
