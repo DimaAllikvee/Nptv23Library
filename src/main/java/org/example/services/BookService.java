@@ -22,16 +22,12 @@ public class BookService {
                 App.books[i] = book;
                 System.out.println("Книга добавлена!");
                 break;
-            }else if (i > 0 && App.books[i] == null) {
-                App.books[i] = book;
-                System.out.println("Книга добавлена!");
-                break;
             }
         }
     }
 
     public void printListBooks() {
-        bookProvider.getList();
+        System.out.println(bookProvider.getList());
     }
 }
 
