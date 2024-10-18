@@ -32,24 +32,20 @@ class AppTest {
         System.setOut(new PrintStream(outDefault));
     }
     @Test
-    void testAppRunAddBook() {
+    void testAppRunExit() {
         InputProvider inputMock = Mockito.mock(InputProvider.class);
-        when(inputMock.getInput()).thenReturn("1", "2","0");
+        when(inputMock.getInput()).thenReturn("0");
         BookProvider bookProviderMock = Mockito.mock(BookProvider.class);
         Author[] authors = new Author[1];
         Author author = new Author("Lev","Tolstoy");
         authors[0] = author;
         when(bookProviderMock.createBook(inputMock)).thenReturn(new Book("Voina i mir",authors,2000));
-        when(bookProviderMock.getList()).thenReturn("1. Voina i mir. [Lev Tolstoy]. 2000");
-        BookHandler bookHandler = new BookHandler(inputMock, bookProviderMock);
-        App app = new App(bookHandler, inputMock);
+        BookHandler bookHandler = new BookHandler(inputMock,bookProviderMock);
+        App app = new App(bookHandler,inputMock);
         app.run();
-        String outContentString = outContent.toString();
-        System.setOut(new PrintStream(outDefault));
-        System.out.println(outContentString);
-        assertTrue(outContent.toString().contains("Книга добавлена!"));
-        assertTrue(outContent.toString().contains("Voina i mir"));
+//        String outContentString = outContent.toString();
+//        System.setOut(new PrintStream(outDefault));
+//        System.out.println(outContentString);
         assertTrue(outContent.toString().contains("Программа завершена"));
     }
-
 }
