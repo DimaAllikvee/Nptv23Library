@@ -1,6 +1,4 @@
-package org.example.model;
-
-import org.example.interfaces.Input;
+package ee.ivkhkdev.model;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -11,7 +9,7 @@ public class User {
     private String lastname;
     private String phone;
 
-    public User(UUID id) {
+    public User() {
         this.id = UUID.randomUUID();
     }
 
@@ -20,10 +18,6 @@ public class User {
         this.firstname = firstname;
         this.lastname = lastname;
         this.phone = phone;
-    }
-
-    public User() {
-
     }
 
     public UUID getId() {
@@ -42,20 +36,20 @@ public class User {
         this.firstname = firstname;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getLastname() {
         return lastname;
     }
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

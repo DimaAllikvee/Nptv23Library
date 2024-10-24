@@ -1,4 +1,4 @@
-package org.example.interfaces;
+package ee.ivkhkdev.interfaces;
 
 public interface Input {
     String getString();

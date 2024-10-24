@@ -1,4 +1,4 @@
-package org.example.model;
+package ee.ivkhkdev.model;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -9,12 +9,10 @@ public class Book {
     private Author[] authors = new Author[10];
     private int publishedYear;
 
-    // Конструктор без параметров, генерирует случайный UUID для книги
     public Book() {
         this.id = UUID.randomUUID();
     }
 
-    // Конструктор с параметрами для инициализации книги
     public Book(String title, Author[] authors, int publishedYear) {
         this.id = UUID.randomUUID();
         this.title = title;
@@ -22,7 +20,6 @@ public class Book {
         this.publishedYear = publishedYear;
     }
 
-    // Геттеры и сеттеры
     public UUID getId() {
         return id;
     }
@@ -55,20 +52,15 @@ public class Book {
         this.publishedYear = publishedYear;
     }
 
-    // Переопределение equals для сравнения книг по всем полям
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Book book = (Book) o;
-        return publishedYear == book.publishedYear &&
-                id.equals(book.id) &&
-                title.equals(book.title) &&
-                Arrays.equals(authors, book.authors);
+        return publishedYear == book.publishedYear && id.equals(book.id) && title.equals(book.title) && Arrays.equals(authors, book.authors);
     }
 
-    // Переопределение hashCode для корректной работы с хэш-таблицами
     @Override
     public int hashCode() {
         int result = id.hashCode();
@@ -78,7 +70,6 @@ public class Book {
         return result;
     }
 
-    // Переопределение toString для вывода информации о книге в удобном виде
     @Override
     public String toString() {
         return "Book{" +
