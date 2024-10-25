@@ -1,19 +1,21 @@
 package ee.ivkhkdev.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class Book {
     private UUID id;
     private String title;
-    private Author[] authors = new Author[10];
+    private List<Author> authors = new ArrayList<>();
     private int publishedYear;
 
     public Book() {
         this.id = UUID.randomUUID();
     }
 
-    public Book(String title, Author[] authors, int publishedYear) {
+    public Book(String title, List<Author> authors, int publishedYear) {
         this.id = UUID.randomUUID();
         this.title = title;
         this.authors = authors;
@@ -36,11 +38,11 @@ public class Book {
         this.title = title;
     }
 
-    public Author[] getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Author[] authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 
@@ -58,14 +60,14 @@ public class Book {
         if (o == null || getClass() != o.getClass()) return false;
 
         Book book = (Book) o;
-        return publishedYear == book.publishedYear && id.equals(book.id) && title.equals(book.title) && Arrays.equals(authors, book.authors);
+        return publishedYear == book.publishedYear && id.equals(book.id) && title.equals(book.title) && Arrays.equals(authors.toArray(), book.authors.toArray());
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + title.hashCode();
-        result = 31 * result + Arrays.hashCode(authors);
+        result = 31 * result + Arrays.hashCode(authors.toArray());
         result = 31 * result + publishedYear;
         return result;
     }
@@ -75,7 +77,7 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", authors=" + Arrays.toString(authors) +
+                ", authors=" + Arrays.toString(authors.toArray()) +
                 ", publishedYear=" + publishedYear +
                 '}';
     }

@@ -4,7 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b4acfb5f-dda8-4640-9248-4bd057351b32" name="Changes" comment="" />
+    <list default="true" id="b4acfb5f-dda8-4640-9248-4bd057351b32" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/qodana.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/apphelpers/AppHelperAuthor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/services/AuthorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/services/Service.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ee/ivkhkdev/apphelpers/AppHelperAuthorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ee/ivkhkdev/services/AuthorServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NPTV23Library/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/NPTV23Library/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/NPTV23Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/NPTV23Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/interfaces/BookProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/apphelpers/AppHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/interfaces/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/input/Input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/interfaces/UserProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/interfaces/impl/AppHelperBooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/apphelpers/AppHelperBook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/interfaces/impl/AppHelperUsers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/interfaces/impl/ConsoleInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/input/ConsoleInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/model/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/model/Author.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/model/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/services/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/services/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ee/ivkhkdev/services/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ee/ivkhkdev/AppTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ee/ivkhkdev/services/BookServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ee/ivkhkdev/services/UserServiceTest.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,8 +41,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -43,6 +70,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.NPTV23Library.executor": "Run",
+    "JUnit.AppHelperAuthorTest.create.executor": "Run",
+    "JUnit.AppHelperAuthorTest.executor": "Run",
     "JUnit.AppTest.executor": "Debug",
     "JUnit.AppTest.testAppRun.executor": "Run",
     "JUnit.AppTest.testAppRunAddBook.executor": "Run",
@@ -62,7 +91,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "refactoring",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/user/IdeaProjects/NPTV23Library",
     "node.js.detected.package.eslint": "true",
@@ -74,10 +103,27 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="QodanaHighlightedReportService">
+    <option name="localRunNotPublishedPersistedInfo">
+      <LocalReportPersistedInfo>
+        <option name="path" value="C:\Users\golan\AppData\Local\Temp\qodana_output\qodana.sarif.json" />
+        <option name="reportGuid" value="1f6d9fa2-6554-43d9-a58b-3c5fbf04071c" />
+        <option name="reportName" value="Nptv23Library/qodana/2024-10-25" />
+      </LocalReportPersistedInfo>
+    </option>
+  </component>
+  <component name="QodanaIsSelectedPersistenceService">
+    <option name="selectedOrLoading" value="true" />
+  </component>
+  <component name="QodanaReportsService">
+    <option name="descriptions">
+      <ReportDescription localRun="true" path="C:\Users\golan\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="1f6d9fa2-6554-43d9-a58b-3c5fbf04071c" reportId="Nptv23Library/qodana/2024-10-25" />
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ee.ivkhkdev.model" />
@@ -89,15 +135,19 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="ee.ivkhkdev.apphelpers" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ee.ivkhkdev.services" />
+      <recent name="ee.ivkhkdev.apphelpers" />
       <recent name="ee.ivkhkdev" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ee.ivkhkdev.interfaces.impl" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BookServiceTest and 1 more">
+  <component name="RunManager" selected="JUnit.AppHelperAuthorTest">
     <configuration name="NPTV23Library" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ee.ivkhkdev.NPTV23Library" />
       <module name="NPTV23Library" />
@@ -111,13 +161,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BookServiceTest and 1 more" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AppHelperAuthorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="NPTV23Library" />
-      <option name="TEST_OBJECT" value="pattern" />
-      <patterns>
-        <pattern testClass="ee.ivkhkdev.services.BookServiceTest" />
-        <pattern testClass="ee.ivkhkdev.services.UserServiceTest" />
-      </patterns>
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ee.ivkhkdev.apphelpers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ee.ivkhkdev.apphelpers" />
+      <option name="MAIN_CLASS_NAME" value="ee.ivkhkdev.apphelpers.AppHelperAuthorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AppHelperAuthorTest.create" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="NPTV23Library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ee.ivkhkdev.apphelpers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ee.ivkhkdev.apphelpers" />
+      <option name="MAIN_CLASS_NAME" value="ee.ivkhkdev.apphelpers.AppHelperAuthorTest" />
+      <option name="METHOD_NAME" value="create" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -137,23 +207,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BookServiceTest.printList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="NPTV23Library" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ee.ivkhkdev.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ee.ivkhkdev.services" />
-      <option name="MAIN_CLASS_NAME" value="ee.ivkhkdev.services.BookServiceTest" />
-      <option name="METHOD_NAME" value="printList" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserServiceTest.testUserServiceAdd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="NPTV23Library" />
       <extension name="coverage">
         <pattern>
@@ -163,19 +217,18 @@
       </extension>
       <option name="PACKAGE_NAME" value="ee.ivkhkdev.services" />
       <option name="MAIN_CLASS_NAME" value="ee.ivkhkdev.services.UserServiceTest" />
-      <option name="METHOD_NAME" value="testUserServiceAdd" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BookServiceTest and 1 more" />
+        <item itemvalue="JUnit.AppHelperAuthorTest" />
         <item itemvalue="Application.NPTV23Library" />
-        <item itemvalue="JUnit.UserServiceTest.testUserServiceAdd" />
+        <item itemvalue="JUnit.AppHelperAuthorTest.create" />
         <item itemvalue="JUnit.BookServiceTest" />
-        <item itemvalue="JUnit.BookServiceTest.printList" />
+        <item itemvalue="JUnit.UserServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -201,6 +254,7 @@
       <workItem from="1728623749998" duration="9331000" />
       <workItem from="1729230870150" duration="19013000" />
       <workItem from="1729753573186" duration="2889000" />
+      <workItem from="1729833660140" duration="22465000" />
     </task>
     <servers />
   </component>

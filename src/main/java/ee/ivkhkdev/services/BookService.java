@@ -1,38 +1,53 @@
 package ee.ivkhkdev.services;
 
-import ee.ivkhkdev.App;
-import ee.ivkhkdev.interfaces.BookProvider;
-import ee.ivkhkdev.interfaces.Input;
+import ee.ivkhkdev.apphelpers.AppHelper;
 import ee.ivkhkdev.model.Book;
 
-public class BookService {
+import java.util.List;
 
-    private final BookProvider bookProvider;
+public class BookService implements Service<Book>{
 
-    public BookService(BookProvider bookProvider) {
-       this.bookProvider = bookProvider;
+    private final List<Book> books;
+    private final AppHelper<Book> appHelperBook;
+
+
+    public BookService(List<Book> books, AppHelper<Book> appHelperBook) {
+        this.books = books;
+        this.appHelperBook = appHelperBook;
+
     }
 
-    public boolean add(Input input, Book[] books) {
+    @Override
+    public boolean add() {
         try {
-            Book book = bookProvider.create(input);
-            if(book == null) return false;
-            for (int i = 0; i < books.length; i++) {
-                if( books[i] == null) {
-                    books[i] = book;
-                    System.out.println("Книга добавлена");
-                    break;
-                }
-
-            }
+            Book book = appHelperBook.create();
+            if(book == null) {return false;}
+            books.add(book);
             return true;
-        }catch (Exception e){
-            return false;
+        }catch(Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
-
+        return false;
     }
 
-    public String printList(Book[] books) {
-        return bookProvider.getList(books);
+    @Override
+    public boolean edit(Book book) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(Book book) {
+        return false;
+    }
+
+    @Override
+    public void print() {
+        appHelperBook.printList(this.list());
+    }
+
+    @Override
+    public List<Book> list() {
+        return books;
+
     }
 }
