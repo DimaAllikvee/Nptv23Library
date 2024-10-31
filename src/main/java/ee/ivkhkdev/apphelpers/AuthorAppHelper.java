@@ -1,33 +1,29 @@
 package ee.ivkhkdev.apphelpers;
 
 import ee.ivkhkdev.App;
-import ee.ivkhkdev.apphelpers.repository.FileRepository;
-import ee.ivkhkdev.input.Input;
+
+import ee.ivkhkdev.interfaces.AppHelper;
+import ee.ivkhkdev.interfaces.Input;
 import ee.ivkhkdev.model.Author;
 
 import java.util.List;
 
 
-public class AppHelperAuthor implements AppHelper<Author> {
-    private final Input input;
-    private final FileRepository<Author> authorRepository;
+public class AuthorAppHelper implements AppHelper<Author>, Input {
 
-    public AppHelperAuthor(Input input, FileRepository<Author> authorRepository) {
-        this.input = input;
-        this.authorRepository = authorRepository;
+    public AuthorAppHelper() {
+
     }
 
-    public FileRepository<Author> getRepository() {
-        return authorRepository;
-    }
+
     @Override
     public Author create() {
         try {
             Author author = new Author();
             System.out.print("Имя автора: ");
-            author.setAuthorName(input.getString());
+            author.setAuthorName(getString());
             System.out.println("Фамилия автора: ");
-            author.setAuthorSurname(input.getString());
+            author.setAuthorSurname(getString());
             return author;
         }catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
