@@ -4,16 +4,20 @@ import ee.ivkhkdev.interfaces.AppHelper;
 import ee.ivkhkdev.interfaces.Service;
 import ee.ivkhkdev.model.Book;
 import ee.ivkhkdev.interfaces.FileRepository;
+import ee.ivkhkdev.storage.Storage;
 
+import java.io.File;
 import java.util.List;
 
-public class BookService implements Service<Book>, FileRepository {
+public class BookService implements Service<Book> {
 
     private final AppHelper<Book> appHelperBook;
     private final String fileName="books";
+    private final FileRepository<Book>  storage;
 
-    public BookService( AppHelper<Book> appHelperBook) {
+    public BookService(AppHelper<Book> appHelperBook, FileRepository<Book> storage) {
         this.appHelperBook = appHelperBook;
+        this.storage = storage;
     }
 
     @Override
@@ -21,7 +25,7 @@ public class BookService implements Service<Book>, FileRepository {
         try {
             Book book = appHelperBook.create();
             if(book == null) {return false;}
-            save(book,fileName);
+            storage.save(book,fileName);
             return true;
         }catch(Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -40,12 +44,13 @@ public class BookService implements Service<Book>, FileRepository {
     }
 
     @Override
-    public void print() {
-        appHelperBook.printList(this.list());
+    public boolean print() {
+
+        return appHelperBook.printList(this.list());
     }
 
     @Override
     public List<Book> list() {
-        return load(fileName);
+        return storage.load(fileName);
     }
 }

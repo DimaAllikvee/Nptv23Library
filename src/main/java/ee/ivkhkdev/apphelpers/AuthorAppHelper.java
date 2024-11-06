@@ -1,7 +1,5 @@
 package ee.ivkhkdev.apphelpers;
 
-import ee.ivkhkdev.App;
-
 import ee.ivkhkdev.interfaces.AppHelper;
 import ee.ivkhkdev.interfaces.Input;
 import ee.ivkhkdev.model.Author;
@@ -33,11 +31,12 @@ public class AuthorAppHelper implements AppHelper<Author>, Input {
     }
 
     @Override
-    public void printList(List<Author> authors) {
+    public boolean printList(List<Author> authors) {
         System.out.println("---------- Список авторов --------");
         for(int i=0;i<authors.size();i++) {
             Author author = authors.get(i);
             System.out.printf("%d. %s %s%n", i+1,author.getAuthorName(),author.getAuthorSurname());
         }
+        return false;
     }
 }

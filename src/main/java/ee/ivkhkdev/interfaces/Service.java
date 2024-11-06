@@ -6,6 +6,7 @@ public interface Service<T> {
     boolean add();
     boolean edit(T entity);
     boolean remove(T entity);
-    void print();
+    boolean print();
     List<T> list();
+
 }

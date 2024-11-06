@@ -18,7 +18,7 @@ public interface FileRepository<T> {
             objectOutputStream.writeObject(list);
             objectOutputStream.flush();
         } catch (FileNotFoundException e) {
-            System.out.println("Нет файла с именем books");
+            System.out.println("Нет файла с именем " + fileName);
         } catch (IOException e) {
             System.out.println("Ошибка ввода информации");
         }
@@ -33,7 +33,7 @@ public interface FileRepository<T> {
             objectOutputStream.writeObject(entities);
             objectOutputStream.flush();
         } catch (FileNotFoundException e) {
-            System.out.println("Нет файла с именем books");
+            System.out.println("Нет файла с именем "+ fileName);
         } catch (IOException e) {
             System.out.println("Ошибка ввода информации");
         }
@@ -46,9 +46,9 @@ public interface FileRepository<T> {
             objectInputStream = new ObjectInputStream(fileInputStream);
             return (List<T>) objectInputStream.readObject();
         } catch (FileNotFoundException | ClassNotFoundException e) {
-            System.out.println("Нет файла с именем books");
+            System.out.println("Нет файла с именем "+ fileName);
         } catch (IOException e) {
-            System.out.println("Ошибка вывода информации");
+            System.out.println("Ошибка вывода информации ");
         }
         return new ArrayList<>();
     }

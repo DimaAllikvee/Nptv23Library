@@ -22,7 +22,7 @@ public class BookAppHelper implements AppHelper<Book>, Input{
         System.out.print("Название книги: ");
         book.setTitle(getString());
         authorService.print();
-        System.out.println("Добавить нового автора (y/n): ");
+        System.out.print("Добавить нового автора (y/n): ");
         String answer = getString();
         if(answer.equalsIgnoreCase("y")) {return null;}
         System.out.print("Укажите количество авторов книги: ");
@@ -40,7 +40,7 @@ public class BookAppHelper implements AppHelper<Book>, Input{
     }
 
     @Override
-    public void printList(List<Book> books) {
+    public boolean printList(List<Book> books) {
         StringBuilder sbBooks = new StringBuilder();
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);
@@ -61,5 +61,6 @@ public class BookAppHelper implements AppHelper<Book>, Input{
             System.out.println(sbBooks.toString());
 
         }
+        return false;
     }
 }
