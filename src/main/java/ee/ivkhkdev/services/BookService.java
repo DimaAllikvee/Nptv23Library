@@ -4,9 +4,7 @@ import ee.ivkhkdev.interfaces.AppHelper;
 import ee.ivkhkdev.interfaces.Service;
 import ee.ivkhkdev.model.Book;
 import ee.ivkhkdev.interfaces.FileRepository;
-import ee.ivkhkdev.storage.Storage;
 
-import java.io.File;
 import java.util.List;
 
 public class BookService implements Service<Book> {
@@ -30,6 +28,11 @@ public class BookService implements Service<Book> {
         }catch(Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+        return false;
+    }
+
+    @Override
+    public boolean edit() {
         return false;
     }
 

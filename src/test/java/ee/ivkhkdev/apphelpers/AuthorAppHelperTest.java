@@ -41,6 +41,23 @@ public class AuthorAppHelperTest {
     }
 
     @Test
+    public void testUpdate() {
+        List<Author> authors = new ArrayList<>();
+        authors.add(new Author("Имя1", "Фамилия1"));
+        authors.add(new Author("Имя2", "Фамилия2"));
+
+
+        AuthorAppHelper spyHelper = Mockito.spy(authorAppHelper);
+        doReturn("1","y","НовоеИмя1","y","НоваяФамилия1").when(spyHelper).getString();
+
+        List<Author> updatedAuthors = spyHelper.update(authors);
+
+        assertNotNull(updatedAuthors);
+        assertEquals("НовоеИмя1", updatedAuthors.get(0).getAuthorName());
+        assertEquals("НоваяФамилия1", updatedAuthors.get(0).getAuthorSurname());
+    }
+
+    @Test
     public void testPrintList() {
         List<Author> authors = new ArrayList<>();
         authors.add(new Author("Имя1", "Фамилия1"));

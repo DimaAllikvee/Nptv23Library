@@ -33,9 +33,10 @@ public class App implements Input{
             System.out.println("1. Добавить книгу");
             System.out.println("2. Список книг");
             System.out.println("3. Добавить автора");
-            System.out.println("4. Добавить читателя");
-            System.out.println("5. Выдать книгу");
-            System.out.println("6. Вернуть книгу");
+            System.out.println("4. Изменить автора");
+            System.out.println("5. Добавить читателя");
+            System.out.println("6. Выдать книгу");
+            System.out.println("7. Вернуть книгу");
 
             System.out.print("Введите номер задачи: ");
             int task = Integer.parseInt(getString());
@@ -65,6 +66,14 @@ public class App implements Input{
                     }
                     break;
                 case 4:
+                    System.out.println("----- Измнение автора -----");
+                if (authorService.edit()) {
+                    System.out.println("Автор добавлен");
+                } else {
+                    System.out.println("Автора добавить не удалось");
+                }
+                break;
+                case 5:
                     System.out.println("----- Добавление читателя -----");
                     if (userService.add()) {
                         System.out.println("Читатель добавлен");
@@ -73,7 +82,7 @@ public class App implements Input{
                     }
                     break;
 
-                case 5:
+                case 6:
                         System.out.println("-----------Выдача книгу---------");
                         if (cardService.add()) {
                             System.out.println("Книга выдана");
@@ -83,7 +92,7 @@ public class App implements Input{
 
                         break;
 
-                case 6:
+                case 7:
                     System.out.println("-----------Возрат книги---------");
                     if (((CardService)cardService).returnBook()) {
                         System.out.println("Книга возвращена");

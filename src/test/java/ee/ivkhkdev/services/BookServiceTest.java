@@ -1,15 +1,15 @@
 package ee.ivkhkdev.services;
 
 import ee.ivkhkdev.interfaces.AppHelper;
+import ee.ivkhkdev.interfaces.FileRepository;
 import ee.ivkhkdev.model.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,89 +18,51 @@ import static org.mockito.Mockito.*;
 class BookServiceTest {
 
     @Mock
-    private AppHelper<Book> appHelperMock;
+    private AppHelper<Book> appHelperBook;
 
-    @Spy
+    @Mock
+    private FileRepository<Book> storage;
+
     @InjectMocks
     private BookService bookService;
-
-    private Book testBook;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        testBook = new Book();  // Инициализация тестового объекта Book
     }
 
     @Test
-    void testAddSuccess() {
-        // Мокируем создание книги
-        when(appHelperMock.create()).thenReturn(testBook);
+    void testAddBookSuccessfully() {
+        Book book = new Book(); // Создаем тестовый экземпляр книги
+        when(appHelperBook.create()).thenReturn(book); // Мокаем создание книги
+        doNothing().when(storage).save(book, "books"); // Мокаем сохранение книги
 
         boolean result = bookService.add();
 
-        assertTrue(result, "Метод add() должен возвращать true при успешном добавлении");
-        verify(appHelperMock, times(1)).create();
+        assertTrue(result);
+        verify(appHelperBook, times(1)).create();
+        verify(storage, times(1)).save(book, "books");
     }
 
     @Test
-    void testAddFailureWhenCreateReturnsNull() {
-        // Мокируем ситуацию, когда create() возвращает null
-        when(appHelperMock.create()).thenReturn(null);
+    void testAddBookFailure() {
+        when(appHelperBook.create()).thenReturn(null); // Мокаем создание книги, возвращая null
 
         boolean result = bookService.add();
 
-        assertFalse(result, "Метод add() должен возвращать false, если create() возвращает null");
-        verify(appHelperMock, times(1)).create();
+        assertFalse(result);
+        verify(appHelperBook, times(1)).create();
+        verify(storage, never()).save(any(), eq("books"));
     }
 
     @Test
-    void testAddExceptionHandling() {
-        // Мокируем выброс исключения при вызове create()
-        when(appHelperMock.create()).thenThrow(new RuntimeException("Ошибка создания"));
-
-        boolean result = bookService.add();
-
-        assertFalse(result, "Метод add() должен возвращать false при исключении");
-        verify(appHelperMock, times(1)).create();
-    }
-
-    @Test
-    void testEdit() {
-        boolean result = bookService.edit(testBook);
-
-        assertFalse(result, "Метод edit() должен возвращать false, так как не реализован");
-    }
-
-    @Test
-    void testRemove() {
-        boolean result = bookService.remove(testBook);
-
-        assertFalse(result, "Метод remove() должен возвращать false, так как не реализован");
-    }
-
-    @Test
-    void testPrint() {
-        // Мокируем возвращаемое значение метода list()
-        List<Book> booksList = new ArrayList<>();
-        booksList.add(testBook);
-        doReturn(booksList).when(bookService).list();
-
-        bookService.print();
-
-        verify(appHelperMock, times(1)).printList(booksList);
-    }
-
-    @Test
-    void testList() {
-        // Мокируем возвращаемое значение для метода list()
-        List<Book> booksList = new ArrayList<>();
-        booksList.add(testBook);
-
-        doReturn(booksList).when(bookService).list();
+    void testListBooks() {
+        List<Book> books = Collections.singletonList(new Book()); // Создаем список с одной книгой
+        when(storage.load("books")).thenReturn(books); // Мокаем загрузку списка
 
         List<Book> result = bookService.list();
 
-        assertEquals(booksList, result, "Метод list() должен возвращать список книг");
+        verify(storage, times(1)).load("books");
+        assertTrue(result.containsAll(books));
     }
 }

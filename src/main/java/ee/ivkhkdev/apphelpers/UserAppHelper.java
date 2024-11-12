@@ -11,15 +11,20 @@ public class UserAppHelper implements AppHelper<User>, Input {
     public User create() {
         try {
             User user = new User();
-            System.out.print("Имя автора: ");
+            System.out.print("Имя читателя: ");
             user.setFirstname(getString());
-            System.out.println("Фамилия автора: ");
+            System.out.print("Фамилия читателя: ");
             user.setLastname(getString());
             return user;
         }catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public List<User> update(List<User> entities) {
+        return List.of();
     }
 
     @Override

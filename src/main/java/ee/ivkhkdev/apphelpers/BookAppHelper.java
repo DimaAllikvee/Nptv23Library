@@ -40,6 +40,11 @@ public class BookAppHelper implements AppHelper<Book>, Input{
     }
 
     @Override
+    public List<Book> update(List<Book> entities) {
+        return List.of();
+    }
+
+    @Override
     public boolean printList(List<Book> books) {
         StringBuilder sbBooks = new StringBuilder();
         for (int i = 0; i < books.size(); i++) {

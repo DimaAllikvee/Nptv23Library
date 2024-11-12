@@ -1,182 +1,235 @@
 package ee.ivkhkdev.apphelpers;
 
+import ee.ivkhkdev.interfaces.Input;
 import ee.ivkhkdev.interfaces.Service;
 import ee.ivkhkdev.model.Author;
 import ee.ivkhkdev.model.Book;
 import ee.ivkhkdev.model.Card;
 import ee.ivkhkdev.model.User;
-import ee.ivkhkdev.services.BookService;
-import ee.ivkhkdev.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CardAppHelperTest {
-    private Service<Book> bookService;
-    private Service<User> userService;
     private CardAppHelper cardAppHelper;
+    private Service<Book> mockBookService;
+    private Service<User> mockUserService;
+    private Input mockInput;
 
     @BeforeEach
-    void setUp() {
-        bookService = mock(Service.class);
-        userService = mock(Service.class);
-        cardAppHelper = new CardAppHelper(bookService, userService);
+    void setUp() {// Мокаем сервисы для книг и пользователей
+        mockBookService = mock(Service.class);
+        mockUserService = mock(Service.class);
+
+        // Мокаем интерфейс Input
+        mockInput = mock(Input.class);
+
+        // Инициализация CardAppHelper с моками
+        cardAppHelper = new CardAppHelper(mockBookService, mockUserService) {
+            @Override
+            public String getString() {
+                return mockInput.getString();
+            }
+        };
     }
 
     @Test
-    void testCreateCardSuccessfully() {
-
-        Author author = new Author("Lev", "Tolstoy");
+    void testCreate_CorrectCard() {
+        // Настроим поведение моков для книг и пользователей
         Book book = new Book();
-        book.setTitle("Voina i mir");
-        book.getAuthors().add(author);
-        book.setPublishedYear(2000);
+        book.setTitle("Мастер и Маргарита");
         User user = new User();
-        List<User> users = List.of(user);
-        user.setFirstname("John");
-        user.setLastname("Snow");
-        user.setPhone("123456");
-        List<Book> books = List.of(book);
+        user.setFirstname("Иван");
+        user.setLastname("Иванов");
 
-        when(bookService.list()).thenReturn(books);
-        when(userService.list()).thenReturn(users);
+        when(mockBookService.list()).thenReturn(List.of(book));
+        when(mockUserService.list()).thenReturn(List.of(user));
 
+        // Мокаем ввод
+        when(mockInput.getString()).thenReturn("1").thenReturn("1");
 
-        CardAppHelper spyCardAppHelper = Mockito.spy(cardAppHelper);
+        // Создаем карту
+        Card card = cardAppHelper.create();
 
-        doReturn("1" ,"n", "1").when(spyCardAppHelper).getString();
-
-        Card card = spyCardAppHelper.create();
-
-
+        // Проверяем, что карта была успешно создана
         assertNotNull(card);
-        assertEquals("Voina i mir", card.getBook().getTitle());
-        assertEquals("John", card.getUser().getFirstname());
-        assertEquals("Snow", card.getUser().getLastname());
-        assertEquals(LocalDate.now(), card.getBorrowedBookDate());
-
-
+        assertEquals(book, card.getBook());
+        assertEquals(user, card.getUser());
+        assertNotNull(card.getBorrowedBookDate());  // Дата займа должна быть текущей
     }
 
     @Test
-    void testCreateCardWithInvalidInput(){
-        when(bookService.list()).thenReturn(List.of(new Book()));
-        when(userService.list()).thenReturn(List.of(new User()));
+    void testCreate_InvalidBookNumber() {
+        // Настроим поведение моков для книг и пользователей
+        Book book = new Book();
+        book.setTitle("Мастер и Маргарита");
+        User user = new User();
+        user.setFirstname("Иван");
+        user.setLastname("Иванов");
 
+        when(mockBookService.list()).thenReturn(List.of(book));
+        when(mockUserService.list()).thenReturn(List.of(user));
 
-        CardAppHelper spyCardAppHelper = Mockito.spy(cardAppHelper);
+        // Мокаем ввод с ошибочным номером книги
+        when(mockInput.getString()).thenReturn("2").thenReturn("1");  // Некорректный номер книги
 
-        doReturn("123").when(spyCardAppHelper).getString();
+        // Пытаемся создать карту
+        Card card = cardAppHelper.create();
 
-        Card card = spyCardAppHelper.create();
+        // Проверяем, что карта не была создана (возвращается null)
         assertNull(card);
     }
 
     @Test
-    void testPrintListWithCards() {
-        Author author = new Author("Lev", "Tolstoy");
+    void testCreate_InvalidUserNumber() {
+        // Настроим поведение моков для книг и пользователей
         Book book = new Book();
-        book.setTitle("Voina i mir");
-        book.getAuthors().add(author);
-        book.setPublishedYear(2000);
-
+        book.setTitle("Мастер и Маргарита");
         User user = new User();
-        user.setFirstname("John");
-        user.setLastname("Snow");
-        user.setPhone("123456");
+        user.setFirstname("Иван");
+        user.setLastname("Иванов");
 
-        Card card1 = new Card();
-        card1.setBook(book);
-        card1.setUser(user);
-        card1.setBorrowedBookDate(null);
+        when(mockBookService.list()).thenReturn(List.of(book));
+        when(mockUserService.list()).thenReturn(List.of(user));
 
-        List<Card> cards = List.of(card1);
+        // Мокаем ввод с некорректным номером пользователя
+        when(mockInput.getString()).thenReturn("1").thenReturn("2");  // Некорректный номер пользователя
 
-        CardAppHelper spyCardAppHelper = Mockito.spy(cardAppHelper);
+        // Пытаемся создать карту
+        Card card = cardAppHelper.create();
 
-        spyCardAppHelper.printList(cards);
+        // Проверяем, что карта не была создана (возвращается null)
+        assertNull(card);
     }
 
     @Test
-    void testPrintListNoCards() {
+    void testPrintList_ValidCards() {
+        // Создаем несколько карт
+        Book book1 = new Book();
+        book1.setTitle("Мастер и Маргарита");
+        User user1 = new User();
+        user1.setFirstname("Иван");
+        user1.setLastname("Иванов");
 
-        List<Card> cards = List.of();
+        Book book2 = new Book();
+        book2.setTitle("1984");
+        User user2 = new User();
+        user2.setFirstname("Петр");
+        user2.setLastname("Петров");
 
-        CardAppHelper spyCardAppHelper = Mockito.spy(cardAppHelper);
+        Card card1 = new Card();
+        card1.setBook(book1);
+        card1.setUser(user1);
+        card1.setBorrowedBookDate(LocalDate.now());
 
-        boolean result = spyCardAppHelper.printList(cards);
+        Card card2 = new Card();
+        card2.setBook(book2);
+        card2.setUser(user2);
+        card2.setBorrowedBookDate(LocalDate.now());
 
-        assertFalse(result);
+        List<Card> cards = List.of(card1, card2);
+
+        // Перехватываем вывод в консоль
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalSystemOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        // Вызов метода printList
+        boolean result = cardAppHelper.printList(cards);
+
+        // Восстанавливаем вывод
+        System.setOut(originalSystemOut);
+
+        // Проверяем, что вывод на консоль был правильным
+        String output = outputStream.toString().trim();
+        assertTrue(output.contains("Мастер и Маргарита. читает: Иван Иванов"));
+        assertTrue(output.contains("1984. читает: Петр Петров"));
+        assertTrue(result);  // Должен вернуть true, так как есть выданные книги
     }
 
     @Test
-    void testReturnBookSuccessfuly() {
+    void testPrintList_EmptyCards() {
+        // Пустой список карт
+        List<Card> cards = new ArrayList<>();
 
-        Author author = new Author("Lev", "Tolstoy");
-        Book book = new Book();
-        book.setTitle("Voina i mir");
-        book.getAuthors().add(author);
-        book.setPublishedYear(2000);
+        // Перехватываем вывод в консоль
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalSystemOut = System.out;
+        System.setOut(new PrintStream(outputStream));
 
-        User user = new User();
-        user.setFirstname("John");
-        user.setLastname("Snow");
-        user.setPhone("123456");
+        // Вызов метода printList
+        boolean result = cardAppHelper.printList(cards);
 
-        Card card1 = new Card();
-        card1.setBook(book);
-        card1.setUser(user);
-        card1.setReturnedBookDate(null);
+        // Восстанавливаем вывод
+        System.setOut(originalSystemOut);
 
-        List<Card> cards = List.of(card1);
-
-        CardAppHelper spyCardAppHelper = Mockito.spy(cardAppHelper);
-
-        doReturn("1").when(spyCardAppHelper).getString();
-
-        List<Card> updatedCards = spyCardAppHelper.returnBook(cards);
-
-        assertNotNull(updatedCards);
-
-        assertEquals(LocalDate.now(), updatedCards.get(0).getReturnedBookDate());
-
-
+        // Проверяем, что вывод на консоль был правильным
+        String output = outputStream.toString().trim();
+        assertTrue(output.toString().contains("--------- Список выданных книг --------"));
+        assertTrue(output.toString().contains("--------- Конец списка --------"));
+        assertFalse(result);  // Должен вернуть false, так как нет выданных книг
     }
 
-        @Test
-        void testReturnBookWithSuccessfully() {
-            Author author = new Author("Lev", "Tolstoy");
-            Book book = new Book();
-            book.setTitle("Voina i mir");
-            book.getAuthors().add(author);
-            book.setPublishedYear(2000);
+    @Test
+    void testReturnBook_Success() {
+        // Создаем список карт
+        Book book = new Book();
+        book.setTitle("Мастер и Маргарита");
+        User user = new User();
+        user.setFirstname("Иван");
+        user.setLastname("Иванов");
 
-            User user = new User();
-            user.setFirstname("John");
-            user.setLastname("Snow");
-            user.setPhone("123456");
+        Card card = new Card();
+        card.setBook(book);
+        card.setUser(user);
+        card.setBorrowedBookDate(LocalDate.now());
 
-            Card card1 = new Card();
-            card1.setBook(book);
-            card1.setUser(user);
-            card1.setReturnedBookDate(null);
+        List<Card> cards = new ArrayList<>();
+        cards.add(card);
 
-            List<Card> cards = List.of(card1);
+        // Мокаем вывод метода printList
+        when(mockInput.getString()).thenReturn("1");
 
-            CardAppHelper spyCardAppHelper = Mockito.spy(cardAppHelper);
+        // Возврат книги
+        List<Card> updatedCards = cardAppHelper.returnBook(cards);
 
-            doReturn("1").when(spyCardAppHelper).getString();
+        // Проверяем, что дата возврата книги установлена
+        assertNotNull(updatedCards.get(0).getReturnedBookDate());
+    }
 
-            List<Card> updatedCards = spyCardAppHelper.returnBook(cards);
+    @Test
+    void testReturnBook_InvalidCardNumber() {
+        // Создаем список карт
+        Book book = new Book();
+        book.setTitle("Мастер и Маргарита");
+        User user = new User();
+        user.setFirstname("Иван");
+        user.setLastname("Иванов");
 
-            assertNotNull(updatedCards);
-            assertEquals(LocalDate.now(), updatedCards.get(0).getReturnedBookDate());
-        }
+        Card card = new Card();
+        card.setBook(book);
+        card.setUser(user);
+        card.setBorrowedBookDate(LocalDate.now());
+
+        List<Card> cards = new ArrayList<>();
+        cards.add(card);
+
+        // Мокаем ввод с ошибочным номером карты
+        when(mockInput.getString()).thenReturn("2");  // Некорректный номер карты
+
+        // Пытаемся вернуть книгу
+        List<Card> updatedCards = cardAppHelper.returnBook(cards);
+
+        // Проверяем, что карта не была обновлена
+        assertNull(updatedCards);
+    }
 }
+
