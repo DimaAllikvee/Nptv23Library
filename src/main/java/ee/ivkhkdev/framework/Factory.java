@@ -5,14 +5,18 @@ import ee.ivkhkdev.framework.config.Configuration;
 public class Factory {
     private static Factory instance = null;
     private static Configuration configuration;
-    private Factory() {}
-    public static Factory getInstance(Configuration configuration){
+
+    private Factory() {
+    }
+
+    public static Factory getInstance(Configuration configuration) {
         Factory.configuration = configuration;
-        if(instance == null){
+        if (instance == null) {
             Factory.instance = new Factory();
         }
         return Factory.instance;
     }
+
     public Object getObject(String name){
         try {
             return configuration.getObject(name);
