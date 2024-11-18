@@ -1,6 +1,5 @@
 package ee.ivkhkdev.apphelpers;
 
-import ee.ivkhkdev.interfaces.AppHelpCard;
 import ee.ivkhkdev.interfaces.AppHelper;
 import ee.ivkhkdev.interfaces.Input;
 import ee.ivkhkdev.interfaces.Service;
@@ -8,7 +7,6 @@ import ee.ivkhkdev.model.Book;
 import ee.ivkhkdev.model.Card;
 import ee.ivkhkdev.model.User;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CardAppHelper implements AppHelper<Card>, Input {
@@ -43,17 +41,22 @@ public class CardAppHelper implements AppHelper<Card>, Input {
     }
 
     @Override
+    public List<Card> update(List<Card> entities) {
+        return List.of();
+    }
+
+    @Override
     public boolean printList(List<Card> cards) {
         int counter = 0;
         System.out.println("--------- Список выданных книг --------");
         for(int i = 0; i < cards.size(); i++) {
             Card card = cards.get(i);
-            if(card.getReturnedBookDate() == null){
-            System.out.printf("%d. %s. читает: %s %s%n",
-                    i + 1,
-                    card.getBook().getTitle(),
-                    card.getUser().getFirstname(),
-                    card.getUser().getLastname()
+            if (card.getReturnedBookDate() == null) {
+                System.out.printf("%d. %s. читает: %s %s%n",
+                        i + 1,
+                        card.getBook().getTitle(),
+                        card.getUser().getFirstname(),
+                        card.getUser().getLastname()
                 );
                 counter++;
             }
@@ -65,23 +68,18 @@ public class CardAppHelper implements AppHelper<Card>, Input {
         return true;
     }
 
-
-
     /*
-     * список выданных книг через карты
-     * выбраем номер карты с нужной книгой
-     * добавляем в карту дату возврата
-     * возвращаем измененный список карт
+     *  список выданных книг через карты
+     *  выбираем номер карты с нужной книгой
+     *  добавляем в карту дату возврата
+     *  возвращаем измененный список карт
      */
-
-
-
     public List<Card> returnBook(List<Card> cards) {
         try {
             this.printList(cards);
-            System.out.println("Выберите номер возвращаемой книги: ");
+            System.out.print("Выберите номер возвращаемой книги: ");
             int numberCard = Integer.parseInt(getString());
-            cards.get(numberCard - 1).setReturnedBookDate(LocalDate.now());
+            cards.get(numberCard-1).setReturnedBookDate(LocalDate.now());
             return cards;
         }catch (Exception e){
             return null;

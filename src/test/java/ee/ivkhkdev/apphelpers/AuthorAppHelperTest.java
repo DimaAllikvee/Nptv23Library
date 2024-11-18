@@ -1,5 +1,6 @@
 package ee.ivkhkdev.apphelpers;
 
+import ee.ivkhkdev.interfaces.Input;
 import ee.ivkhkdev.model.Author;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +39,51 @@ public class AuthorAppHelperTest {
         assertNotNull(author);
         assertEquals("ИмяТест", author.getAuthorName());
         assertEquals("ФамилияТест", author.getAuthorSurname());
+    }
+    @Test
+    public void testUpdateSuccessfull(){
+        Input mockedInput = Mockito.mock(Input.class);
+        authorAppHelper = new AuthorAppHelper() {
+            @Override
+            public String getString() {
+                return mockedInput.getString();
+            }
+        };
+        Mockito.when(mockedInput.getString()).thenReturn("1","y", "NewName","y","NewSurname");
+        List<Author> authors = List.of(new Author("Lev","Tolstoy"));
+        List<Author> modifedAuthors = authorAppHelper.update(authors);
+        assertEquals("NewName", modifedAuthors.get(0).getAuthorName());
+        assertEquals("NewSurname", modifedAuthors.get(0).getAuthorSurname());
+    }
+    @Test
+    void testUpdate_NameNotChanged() {
+        Input mockedInput = Mockito.mock(Input.class);
+        authorAppHelper = new AuthorAppHelper() {
+            @Override
+            public String getString() {
+                return mockedInput.getString();
+            }
+        };
+        Mockito.when(mockedInput.getString()).thenReturn("1","n","y","Trotsky");
+        List<Author> authors = List.of(new Author("Lev","Tolstoy"));
+        List<Author> modifedAuthors = authorAppHelper.update(authors);
+        assertEquals("Lev", modifedAuthors.get(0).getAuthorName());
+        assertEquals("Trotsky", modifedAuthors.get(0).getAuthorSurname());
+    }
+    @Test
+    void testUpdate_InvalidInputAuthor() {
+        Input mockedInput = Mockito.mock(Input.class);
+        authorAppHelper = new AuthorAppHelper() {
+            @Override
+            public String getString() {
+                return mockedInput.getString();
+            }
+        };
+        Mockito.when(mockedInput.getString()).thenReturn("2","y","НовоеИмя","y","Trotsky");
+        List<Author> authors = List.of(new Author("Lev","Tolstoy"));
+        List<Author> modifedAuthors = authorAppHelper.update(authors);
+        assertNull(modifedAuthors);
+
     }
 
     @Test

@@ -16,7 +16,7 @@ public class App implements Input{
     private final Service<User> userService;
     private final Service<Card> cardService;
 
-    public App(Service<Book> bookService, Service<Author> authorService, Service<User>userService, Service<Card> cardService) {
+    public App(Service<Book> bookService, Service<Author> authorService, Service<User> userService, Service<Card> cardService) {
         this.bookService = bookService;
         this.authorService = authorService;
         this.userService = userService;
@@ -31,11 +31,15 @@ public class App implements Input{
             System.out.println("Список задач: ");
             System.out.println("0. Выйти из программы");
             System.out.println("1. Добавить книгу");
-            System.out.println("2. Список книг");
-            System.out.println("3. Добавить автора");
-            System.out.println("4. Добавить читателя");
-            System.out.println("5. Выдать книгу");
-            System.out.println("6. Вернуть книгу");
+            System.out.println("2. Изменить книгу");
+            System.out.println("3. Список книг");
+            System.out.println("4. Добавить автора");
+            System.out.println("5. Изменить автора");
+            System.out.println("6. Добавить читателя");
+            System.out.println("7. Список читателей");
+            System.out.println("8. Изменить читателя");
+            System.out.println("9. Выдать книгу");
+            System.out.println("10. Вернуть книгу");
 
             System.out.print("Введите номер задачи: ");
             int task = Integer.parseInt(getString());
@@ -45,7 +49,6 @@ public class App implements Input{
                     break;
                 case 1:
                     System.out.println("----- Добавление книги -----");
-
                     if (bookService.add()) {
                         System.out.println("Книга добавлена");
                     } else {
@@ -53,10 +56,18 @@ public class App implements Input{
                     }
                     break;
                 case 2:
+                    System.out.println("----- Изменение книги -----");
+                    if (bookService.edit()) {
+                        System.out.println("Книга изменена");
+                    } else {
+                        System.out.println("Книгу изменить не удалось");
+                    }
+                    break;
+                case 3:
                     System.out.println("----- Список книг -----");
                     bookService.print();
                     break;
-                case 3:
+                case 4:
                     System.out.println("----- Добавление автора -----");
                     if (authorService.add()) {
                         System.out.println("Автор добавлен");
@@ -64,7 +75,15 @@ public class App implements Input{
                         System.out.println("Автора добавить не удалось");
                     }
                     break;
-                case 4:
+                case 5:
+                    System.out.println("----- Изменение автора -----");
+                    if (authorService.edit()) {
+                        System.out.println("Автор изменен");
+                    } else {
+                        System.out.println("Автора изменить не удалось");
+                    }
+                    break;
+                case 6:
                     System.out.println("----- Добавление читателя -----");
                     if (userService.add()) {
                         System.out.println("Читатель добавлен");
@@ -72,22 +91,31 @@ public class App implements Input{
                         System.out.println("Читателя добавить не удалось");
                     }
                     break;
-
-                case 5:
-                        System.out.println("-----------Выдача книгу---------");
-                        if (cardService.add()) {
-                            System.out.println("Книга выдана");
-                        } else {
-                            System.out.println("Книгу выдать не удалось");
-                        }
-
-                        break;
-
-                case 6:
-                    System.out.println("-----------Возрат книги---------");
+                case 7:
+                    System.out.println("----- Список читателей -----");
+                    userService.print();
+                    break;
+                case 8:
+                    System.out.println("----- Изменение читателя -----");
+                    if (userService.edit()) {
+                        System.out.println("Читатель изменен");
+                    } else {
+                        System.out.println("Читателя изменить не удалось");
+                    }
+                    break;
+                case 9:
+                    System.out.println("------Выдача книги------");
+                    if (cardService.add()) {
+                        System.out.println("Книга выдана");
+                    }else {
+                        System.out.println("Книгу выдать не удалось");
+                    }
+                    break;
+                case 10:
+                    System.out.println("------Возварат книги------");
                     if (((CardService)cardService).returnBook()) {
                         System.out.println("Книга возвращена");
-                    } else {
+                    }else {
                         System.out.println("Книгу возвратить не удалось");
                     }
                     break;
@@ -98,4 +126,6 @@ public class App implements Input{
         }while(repeat);
         System.out.println("До свидания :)");
     }
+
+
 }

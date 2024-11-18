@@ -34,16 +34,18 @@ public class CardService implements Service<Card>, Input {
         }
     }
 
-    public boolean returnBook(){
-        List<Card> modifedCards = ((CardAppHelper)cardAppHelper).returnBook(storage.load(fileName));
-        if (modifedCards == null) {return false;}
-        storage.saveAll(modifedCards, fileName);
-        return true;
-    }
     @Override
-    public boolean edit(Card entity) {
+    public boolean edit() {
         return false;
     }
+
+    public boolean returnBook(){
+        List<Card> modifedCards =((CardAppHelper)cardAppHelper).returnBook(storage.load(fileName));
+        if(modifedCards == null) {return false;}
+        storage.saveAll(modifedCards,fileName);
+        return true;
+    }
+
 
     @Override
     public boolean remove(Card entity) {

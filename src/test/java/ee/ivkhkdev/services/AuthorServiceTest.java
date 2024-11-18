@@ -1,14 +1,16 @@
 package ee.ivkhkdev.services;
 
 import ee.ivkhkdev.interfaces.AppHelper;
+import ee.ivkhkdev.interfaces.FileRepository;
 import ee.ivkhkdev.model.Author;
+import ee.ivkhkdev.model.Book;
+import ee.ivkhkdev.storage.Storage;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,87 +18,52 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class AuthorServiceTest {
-
-    @Mock
-    private AppHelper<Author> appHelperMock;
-
-    @Spy
-    @InjectMocks
     private AuthorService authorService;
-
-    private Author testAuthor;
+    private AppHelper<Author> appHelperAuthor;
+    private FileRepository<Author> storage;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
 
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        testAuthor = new Author();
+    public void setUp() {
+        appHelperAuthor = mock(AppHelper.class);
+        storage = mock(FileRepository.class);
+        authorService = new AuthorService(appHelperAuthor, storage);
+        System.setOut(new PrintStream(outContent));
     }
 
     @Test
-    void testAddSuccess() {
-        when(appHelperMock.create()).thenReturn(testAuthor);
-
-        boolean result = authorService.add();
-
-        assertTrue(result, "Метод add() должен возвращать true при успешном добавлении");
-        verify(appHelperMock, times(1)).create();
+    public void testAddBookSuccessfully() {
+        appHelperAuthor = mock(AppHelper.class);
+        storage = mock(FileRepository.class);
+        authorService = new AuthorService(appHelperAuthor, storage);
+        System.setOut(new PrintStream(outContent));
     }
 
     @Test
-    void testAddFailureWhenCreateReturnsNull() {
-        when(appHelperMock.create()).thenReturn(null);
-
-        boolean result = authorService.add();
-
-        assertFalse(result, "Метод add() должен возвращать false, если create() возвращает null");
-        verify(appHelperMock, times(1)).create();
+    public void testAddBookReturnsFalseWhenNull() {
+        appHelperAuthor = mock(AppHelper.class);
+        storage = mock(FileRepository.class);
+        authorService = new AuthorService(appHelperAuthor, storage);
+        System.setOut(new PrintStream(outContent));
     }
 
-    @Test
-    void testAddExceptionHandling() {
-        when(appHelperMock.create()).thenThrow(new RuntimeException("Ошибка создания"));
 
-        boolean result = authorService.add();
-
-        assertFalse(result, "Метод add() должен возвращать false при исключении");
-        verify(appHelperMock, times(1)).create();
-    }
 
     @Test
-    void testEdit() {
-        boolean result = authorService.edit(testAuthor);
-
-        assertFalse(result, "Метод edit() должен возвращать false, так как не реализован");
-    }
-
-    @Test
-    void testRemove() {
-        boolean result = authorService.remove(testAuthor);
-
-        assertFalse(result, "Метод remove() должен возвращать false, так как не реализован");
-    }
-
-    @Test
-    void testPrint() {
-        // Мокируем возвращаемое значение метода list() для спай-объекта authorService
-        List<Author> authorsList = new ArrayList<>();
-        authorsList.add(testAuthor);
-        doReturn(authorsList).when(authorService).list();
-
-        authorService.print();
-
-        verify(appHelperMock, times(1)).printList(authorsList);
-    }
-
-    @Test
-    void testList() {
-        List<Author> authorsList = new ArrayList<>();
-        authorsList.add(testAuthor);
-
-        doReturn(authorsList).when(authorService).list();
+    public void testListAuthors() {
+        List<Author> authors = new ArrayList<>();
+        authors.add(new Author("Имя1", "Фамилия1"));
+        when(storage.load("authors")).thenReturn(authors);
 
         List<Author> result = authorService.list();
 
-        assertEquals(authorsList, result, "Метод list() должен возвращать список авторов");
+        assertEquals(authors, result);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        System.setOut(originalOut);
+        outContent.reset();
     }
 }

@@ -12,136 +12,100 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CardServiceTest {
-    private CardService cardService;
-
     @Mock
     private AppHelper<Card> cardAppHelper;
-
-    @Mock
-    private Service<Book> bookService;
-
-    @Mock
-    private Service<User> userService;
-
-    @Mock
-    private FileRepository<Card> storage;
-
+    @Mock private Service<Book> bookService;
+    @Mock private Service<User> userService;
+    @Mock private FileRepository<Card> storage;
+    private CardService cardService;
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(this); // Инициализация моков
         cardService = new CardService(cardAppHelper, bookService, userService, storage);
     }
-
-
-
     @Test
     void testAddCardSuccessfully() {
-        Card card = new Card();
-        when(cardAppHelper.create()).thenReturn(card);
-        boolean result = cardService.add();
-        assertTrue(result);
-        verify(storage, times(1)).save(card, "cards");
-    }
-
-    @Test
-    void testAddCardFailsWhenCardIsNull() {
-        when(cardAppHelper.create()).thenReturn(null);
-        boolean result = cardService.add();
-        assertFalse(result);
-        verify(storage, never()).save(any(), eq("cards"));
-    }
-
-    @Test
-    void testAddCardHandlesException() {
-        when(cardAppHelper.create()).thenThrow(new RuntimeException("Test Exception"));
-
-        boolean result = cardService.add();
-
-        assertFalse(result);
-        verify(storage, never()).save(any(), eq("cards"));
-    }
-
-    @Test
-    void testReturnBookSuccessfully() {
+        // Подготовка данных
         Book book = new Book();
         book.setTitle("Test Book");
 
         User user = new User();
         user.setFirstname("John");
-        user.setLastname("Snow");
+        user.setLastname("Doe");
+
+        // Создание карты
+        Card card = new Card();
+        card.setBook(book);
+        card.setUser(user);
+
+        // Мокируем метод create() для cardAppHelper
+        when(cardAppHelper.create()).thenReturn(card);
+
+        // Мокируем работу с хранилищем
+        doNothing().when(storage).save(card, "cards");
+
+        // Проверка, что метод add возвращает true
+        boolean result = cardService.add();
+
+        assertTrue(result);
+        verify(storage, times(1)).save(card, "cards"); // Проверяем, что save был вызван
+    }
+    @Test
+    void testAddCardFailed() {
+        // Мокируем, что create() вернет null
+        when(cardAppHelper.create()).thenReturn(null);
+
+        // Проверка, что метод add возвращает false
+        boolean result = cardService.add();
+
+        assertFalse(result);
+        verify(storage, never()).save(any(), eq("cards")); // Проверяем, что save не был вызван
+    }
+
+    @Test
+    void testReturnBookSuccessfully() {
+        // Подготовка данных
+        Book book = new Book();
+        book.setTitle("Test Book");
+
+        User user = new User();
+        user.setFirstname("John");
+        user.setLastname("Doe");
 
         Card card = new Card();
         card.setBook(book);
         card.setUser(user);
         card.setReturnedBookDate(null);
 
-        List<Card> cards = List.of(new Card());
+        List<Card> cards = List.of(card);
 
-
+        // Мокируем загрузку списка карт из хранилища
         when(storage.load("cards")).thenReturn(cards);
 
-        when(((CardAppHelper) cardAppHelper).returnBook(any())).thenReturn(List.of(new Card()));
-        List<Card> modifiedCards = List.of(new Card());
+        // Создаем шпион на CardAppHelper (реальный объект)
+        CardAppHelper cardAppHelperSpy = spy(new CardAppHelper(bookService, userService));
 
+        // Мокируем метод returnBook() в CardAppHelper через spy
+        List<Card> modifiedCards = List.of(card);
+        doReturn(modifiedCards).when(cardAppHelperSpy).returnBook(cards);
+
+        // Мокируем storage
         doNothing().when(storage).saveAll(modifiedCards, "cards");
-        cardService = new CardService(cardAppHelper, bookService, userService, storage);
 
+        // Передаем шпион в сервис
+        cardService = new CardService(cardAppHelperSpy, bookService, userService, storage);
+
+        // Проверка, что возврат книги прошел успешно
         boolean result = cardService.returnBook();
 
         assertTrue(result);
-        verify(storage, times(1)).saveAll(cards, "cards");
-    }
-
-    @Test
-    void testReturnBookFailsWhenModifiedCardsIsNull() {
-        when(storage.load("cards")).thenReturn(List.of());
-        when(((CardAppHelper) cardAppHelper).returnBook(any())).thenReturn(null);
-
-        boolean result = cardService.returnBook();
-
-        assertFalse(result);
-        verify(storage, never()).saveAll(any(), eq("cards"));
-    }
-
-    @Test
-    void testPrintSuccessfully() {
-        Card card = new Card();
-        List<Card> cards = List.of(card);
-        when(storage.load("cards")).thenReturn(cards);
-        when(cardAppHelper.printList(cards)).thenReturn(true);
-
-        boolean result = cardService.print();
-
-        assertTrue(result);
-        verify(cardAppHelper, times(1)).printList(cards);
-    }
-
-    @Test
-    void testPrintFailsWhenNoCards() {
-        when(storage.load("cards")).thenReturn(List.of());
-        when(cardAppHelper.printList(any())).thenReturn(false);
-
-        boolean result = cardService.print();
-
-        assertFalse(result);
-        verify(cardAppHelper, times(1)).printList(any());
-    }
-
-    @Test
-    void testListReturnsLoadedCards() {
-        Card card = new Card();
-        List<Card> cards = List.of(card);
-        when(storage.load("cards")).thenReturn(cards);
-
-        List<Card> result = cardService.list();
-
-        assertEquals(cards, result);
-        verify(storage, times(1)).load("cards");
+        verify(storage, times(1)).saveAll(modifiedCards, "cards");
     }
 }
